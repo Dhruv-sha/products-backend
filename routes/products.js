@@ -19,10 +19,11 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM items ORDER BY id DESC');
+    const result = await pool.query('SELECT * FROM items');
     res.json(result.rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    console.error('Error fetching products:', error);  // 👈 ADD THIS LINE
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
